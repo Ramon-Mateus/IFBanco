@@ -4,6 +4,11 @@ class Banco {
   private int id;
   private string nome;
 
+  public Banco(int id, string nome) {
+    this.id = id;
+    this.nome = nome;
+  }
+
   public int GetId() {
     return id;
   }
