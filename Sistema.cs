@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 
 class Sistema {
   private static Banco[] bancos = new Banco[5];
+  private static List<Cliente> clientes = new List<Cliente>();
+  private static List<ContaBancaria> contas = new List<ContaBancaria>();
   private static int qtd;
 
   public static void BancoInserir(Banco obj) {
@@ -41,5 +44,57 @@ class Sistema {
     }
     return -1;
   }
+
+  public static void ClienteInserir(Cliente obj) {
+    clientes.Add(obj);
+  }
+
+  public static List<Cliente> ClienteListar() {
+    return clientes;
+  }
+
+  public static Cliente ClienteListar(string cpf) {
+    foreach(Cliente x in clientes) if (x.GetCpf() == cpf) return x;
+    return null;
+  }
+
+  public static void ClienteAtualizar(Cliente obj) {
+    Cliente aux= ClienteListar(obj.GetCpf());
+    if (aux != null) {
+      aux.SetNome(obj.GetNome());
+      aux.SetEmail(obj.GetEmail());
+    }
+  }
+
+  public static void ClienteExcluir(Cliente obj) {
+    Cliente aux = ClienteListar(obj.GetCpf());
+    if (aux != null) clientes.Remove(aux);
+  }
   
+  public static void ContaInserir(ContaBancaria obj) {
+    contas.Add(obj);
+  }
+
+  public static List<ContaBancaria> ContaListar() {
+    return contas;
+  }
+
+  public static ContaBancaria ContaListar(int id, string cpf) {
+    foreach(ContaBancaria x in contas) if (x.GetCpfCliente() == cpf && x.GetIdBanco() == id) return x;
+    return null;
+  }
+
+  public static void ContaAtualizar(ContaBancaria obj) {
+    ContaBancaria aux = ContaListar(obj.GetIdBanco(), obj.GetCpfCliente());
+    if (aux != null) {
+      aux.SetNumero(obj.GetNumero());
+      aux.SetAgencia(obj.GetAgencia());
+      aux.SetSaldo(obj.GetSaldo());
+    }
+  }
+
+  public static void ContaExcluir(ContaBancaria obj) {
+    ContaBancaria aux = ContaListar(obj.GetIdBanco(), obj.GetCpfCliente());
+    if (aux != null) contas.Remove(aux);
+  }
 }

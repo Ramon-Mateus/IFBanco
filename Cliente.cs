@@ -5,6 +5,16 @@ class Cliente {
   private string cpf;
   private string email;
 
+  public Cliente(string cpf) {
+    this.cpf = cpf;
+  }
+
+  public Cliente(string nome, string cpf, string email) {
+    this.nome = nome;
+    this.cpf = cpf;
+    this.email = email;
+  }
+
   public string GetNome() {
     return nome;
   }
