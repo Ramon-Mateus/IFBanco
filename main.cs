@@ -21,6 +21,8 @@ class Program {
           case 10: ContaListar(); break;
           case 11: ContaAtualizar(); break;
           case 12: ContaExcluir(); break;
+          case 13: ContaListarBanco(); break;
+          case 14: ContaListarCliente(); break;
         }
       } catch (Exception e) {
         Console.WriteLine($"Ocorreu um erro: {e.Message}");
@@ -42,6 +44,8 @@ class Program {
     Console.WriteLine("10 - Listar as contas cadastradas");
     Console.WriteLine("11 - Atualizar uma conta");
     Console.WriteLine("12 - Excluir uma conta");
+    Console.WriteLine("13 - Listar as contas cadastradas por banco");
+    Console.WriteLine("14 - Listar as contas cadastradas por cliente");
     Console.WriteLine("00 - Finalizar o programa");
     Console.WriteLine("-----------------------------------------");
     Console.Write("Digite sua opção: ");
@@ -198,6 +202,32 @@ class Program {
     ContaBancaria x = new ContaBancaria(id, cpf);
     Sistema.ContaExcluir(x);
     Console.WriteLine("--- Operação Concluída ---");
+    Console.WriteLine();
+  }
+
+  public static void ContaListarBanco() {
+    Console.WriteLine("----- Listar contas cadastradas por banco -----");
+    Console.WriteLine();
+    BancoListar();
+    Console.Write("Informe o id do banco: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.WriteLine();
+    Console.WriteLine($"----- Contas cadastradas no banco {id} -----");
+    foreach(ContaBancaria x in Sistema.ContaListarBanco(id)) Console.WriteLine(x);
+    Console.WriteLine("---------------------------------------------");
+    Console.WriteLine();
+  }
+
+  public static void ContaListarCliente() {
+    Console.WriteLine("----- Listar contas cadastradas por cliente -----");
+    Console.WriteLine();
+    ClienteListar();
+    Console.Write("Informe o CPF do cliente: ");
+    string cpf = Console.ReadLine();
+    Console.WriteLine();
+    Console.WriteLine($"----- Contas cadastradas no cliente com o cpf {cpf} -----");
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(cpf)) Console.WriteLine(x);
+    Console.WriteLine("---------------------------------------------");
     Console.WriteLine();
   }
 }

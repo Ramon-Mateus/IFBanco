@@ -97,4 +97,16 @@ class Sistema {
     ContaBancaria aux = ContaListar(obj.GetIdBanco(), obj.GetCpfCliente());
     if (aux != null) contas.Remove(aux);
   }
+
+  public static List<ContaBancaria> ContaListarBanco(int id) {
+    List<ContaBancaria> aux = new List<ContaBancaria>();
+    foreach(ContaBancaria x in contas) if(x.GetIdBanco() == id) aux.Add(x);
+    return aux;
+  }
+
+  public static List<ContaBancaria> ContaListarCliente(string cpf) {
+    List<ContaBancaria> aux = new List<ContaBancaria>();
+    foreach(ContaBancaria x in contas) if(x.GetCpfCliente() == cpf) aux.Add(x);
+    return aux;
+  }
 }

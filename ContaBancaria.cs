@@ -11,7 +11,7 @@ class ContaBancaria {
     this.idBanco = idBanco;
     this.cpfCliente = cpfCliente;
   }
-  
+
   public ContaBancaria(string numero, string agencia, double saldo, int idBanco, string cpfCliente) {
     this.numero = numero;
     this.agencia = agencia;
