@@ -61,6 +61,6 @@ class ContaBancaria {
   }
 
   public override string ToString() {
-    return $"Numero: {numero} - Agencia: {agencia} - Saldo: {saldo} - Id do Banco: {idBanco} - CPF do Cliente: {cpfCliente}";
+    return $"Numero: {numero} - Agencia: {agencia} - Saldo: R$ {saldo:0.00} - Id do Banco: {idBanco} - CPF do Cliente: {cpfCliente}";
   }
 }

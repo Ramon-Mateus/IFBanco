@@ -26,6 +26,7 @@ class Program {
         }
       } catch (Exception e) {
         Console.WriteLine($"Ocorreu um erro: {e.Message}");
+        Console.WriteLine();
       } 
     } while(n != 0);
   }
@@ -118,6 +119,8 @@ class Program {
 
   public static void ClienteAtualizar() {
     Console.WriteLine("----- Atualizar Cliente -----");
+    Console.WriteLine();
+    ClienteListar();
     Console.Write("Informe o CPF do cliente a ser atualizado: ");
     string cpf =  Console.ReadLine();
     Console.Write("Informe o novo nome: ");
@@ -227,7 +230,7 @@ class Program {
     Console.WriteLine();
     Console.WriteLine($"----- Contas cadastradas no cliente com o cpf {cpf} -----");
     foreach(ContaBancaria x in Sistema.ContaListarCliente(cpf)) Console.WriteLine(x);
-    Console.WriteLine("---------------------------------------------");
+    Console.WriteLine("------------------------------------------------------------------");
     Console.WriteLine();
   }
 }
