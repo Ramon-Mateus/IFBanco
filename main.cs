@@ -5,6 +5,14 @@ class Program {
   private static Cliente clienteLogin = null;
   
   public static void Main (string[] args) {
+
+    try {
+      Sistema.ArquivosAbrir();
+    }
+    catch (Exception erro) {
+      Console.WriteLine(erro.Message);
+    }
+    
     Console.WriteLine("Bem vindo ao IFBanco!");
     int n = 0;
     int perfil = 0;
@@ -57,6 +65,14 @@ class Program {
         Console.WriteLine();
       } 
     } while(n != 0);
+
+    try {
+      Sistema.ArquivosSalvar();
+    }
+    catch (Exception erro) {
+      Console.WriteLine(erro.Message);
+    }
+    
   }
 
   public static void ClienteLogin() {
@@ -176,6 +192,10 @@ class Program {
     Console.WriteLine();
     Console.Write("Informe o número da conta que você quer realizar o Pix: ");
     string numero = Console.ReadLine();
+    Console.WriteLine($"----- Contas de terceiros -----");
+    foreach(ContaBancaria x in Sistema.ContaListar()) if(x.GetCpfCliente() != clienteLogin.GetCpf()) Console.WriteLine(x);
+    Console.WriteLine("------------------------------------------------------------------");
+    Console.WriteLine();
     Console.Write("Informe o número da conta que você quer enviar o Pix: ");
     string numero2 = Console.ReadLine();
     Console.Write("Informe o valor que deseja enviar como Pix: ");

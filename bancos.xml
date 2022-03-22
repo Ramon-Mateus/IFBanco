@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBanco xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Banco>
+    <Id>32</Id>
+    <Nome>Nubank</Nome>
+  </Banco>
+  <Banco>
+    <Id>46</Id>
+    <Nome>Caixa Econômica</Nome>
+  </Banco>
+  <Banco>
+    <Id>57</Id>
+    <Nome>Banco do Brasil</Nome>
+  </Banco>
+</ArrayOfBanco>

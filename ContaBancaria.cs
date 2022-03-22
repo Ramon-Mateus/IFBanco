@@ -1,11 +1,35 @@
 using System;
+using System.Collections;
 
-class ContaBancaria {
+public class ContaBancaria : IComparable {
   private string numero;
   private string agencia;
   private double saldo;
   private int idBanco;
   private string cpfCliente;
+
+  public string Numero { 
+    get => numero; 
+    set => numero = value; 
+  }
+  public string Agencia { 
+    get => agencia; 
+    set => agencia = value; 
+  }
+  public double Saldo { 
+    get => saldo; 
+    set => saldo = value; 
+  }
+  public int IdBanco { 
+    get => idBanco;
+    set => idBanco = value; 
+  }
+  public string CpfCliente { 
+    get => cpfCliente;
+    set => cpfCliente = value; 
+  }
+
+  public ContaBancaria() { }
 
   public ContaBancaria(int idBanco, string cpfCliente) {
     this.idBanco = idBanco;
@@ -18,6 +42,11 @@ class ContaBancaria {
     this.saldo = saldo;
     this.idBanco = idBanco;
     this.cpfCliente = cpfCliente;
+  }
+
+  public int CompareTo(object obj) {
+    ContaBancaria x = (ContaBancaria) obj;
+    return x.saldo.CompareTo(this.saldo);
   }
 
   public string GetNumero() {
@@ -80,5 +109,13 @@ class ContaBancaria {
 
   public override string ToString() {
     return $"Numero: {numero} - Agencia: {agencia} - Saldo: R$ {saldo:0.00} - Banco: {Sistema.BancoListar(idBanco).GetNome()} - Cliente: {Sistema.ClienteListar(cpfCliente).GetNome()} - CPF do Cliente: {cpfCliente}";
+  }
+}
+
+class ContaSaldoComp : IComparer {
+  public int Compare(object x, object y) {
+    ContaBancaria a = (ContaBancaria) x;
+    ContaBancaria b = (ContaBancaria) y;
+    return a.GetSaldo().CompareTo(b.GetSaldo());
   }
 }
