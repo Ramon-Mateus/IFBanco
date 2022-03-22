@@ -60,7 +60,25 @@ class ContaBancaria {
     this.cpfCliente = cpfCliente;
   }
 
+  public int Sacar(double valor) {
+    if(saldo > 0 && saldo >= valor) {
+      saldo -= valor;
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  public int Depositar(double valor) {
+    if(valor > 0) {
+      saldo += valor;
+        return 1;
+    } else {
+      return -1;
+    }
+  }
+
   public override string ToString() {
-    return $"Numero: {numero} - Agencia: {agencia} - Saldo: R$ {saldo:0.00} - Id do Banco: {idBanco} - CPF do Cliente: {cpfCliente}";
+    return $"Numero: {numero} - Agencia: {agencia} - Saldo: R$ {saldo:0.00} - Banco: {Sistema.BancoListar(idBanco).GetNome()} - Cliente: {Sistema.ClienteListar(cpfCliente).GetNome()} - CPF do Cliente: {cpfCliente}";
   }
 }

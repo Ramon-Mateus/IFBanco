@@ -1,28 +1,56 @@
 using System;
 
 class Program {
+
+  private static Cliente clienteLogin = null;
+  
   public static void Main (string[] args) {
     Console.WriteLine("Bem vindo ao IFBanco!");
-    Console.WriteLine();
-    int n = -1;
+    int n = 0;
+    int perfil = 0;
     do {
       try {
-        n = Menu();
-        switch(n) {
-          case 1: BancoInserir(); break;
-          case 2: BancoListar(); break;
-          case 3: BancoAtualizar(); break;
-          case 4: BancoExcluir(); break;
-          case 5: ClienteInserir(); break;
-          case 6: ClienteListar(); break;
-          case 7: ClienteAtualizar(); break;
-          case 8: ClienteExcluir(); break;
-          case 9: ContaInserir(); break;
-          case 10: ContaListar(); break;
-          case 11: ContaAtualizar(); break;
-          case 12: ContaExcluir(); break;
-          case 13: ContaListarBanco(); break;
-          case 14: ContaListarCliente(); break;
+        if (perfil == 0) {
+          n = 0;
+          perfil = MenuUsuario();
+        }
+        if (perfil == 1) {
+          n = MenuAdmin();
+          switch(n) {
+            case 1: BancoInserir(); break;
+            case 2: BancoListar(); break;
+            case 3: BancoAtualizar(); break;
+            case 4: BancoExcluir(); break;
+            case 5: ClienteInserir(); break;
+            case 6: ClienteListar(); break;
+            case 7: ClienteAtualizar(); break;
+            case 8: ClienteExcluir(); break;
+            case 9: ContaInserir(); break;
+            case 10: ContaListar(); break;
+            case 11: ContaAtualizar(); break;
+            case 12: ContaExcluir(); break;
+            case 13: ContaListarBanco(); break;
+            case 14: ContaListarCliente(); break;
+            case 99: perfil = 0; break;
+          }
+        }
+        if (perfil == 2 && clienteLogin == null) {
+          n = MenuClienteLogin();
+          switch(n) {
+            case 1 : ClienteLogin(); break;
+            case 99: perfil = 0; break;
+          }
+        }
+        if (perfil == 2 && clienteLogin != null) {
+          n = MenuClienteLogout();
+          switch(n) {
+            case 1 : ClienteSacar(); break;
+            case 2 : ClienteDepositar(); break;
+            case 3 : ClientePixar(); break;
+            case 4 : ClienteListarContas(); break;
+            case 5 : ClienteContaInformacoes(); break;
+            case 99: ClienteLogout(); break;
+          }
         }
       } catch (Exception e) {
         Console.WriteLine($"Ocorreu um erro: {e.Message}");
@@ -31,7 +59,33 @@ class Program {
     } while(n != 0);
   }
 
-  public static int Menu() {
+  public static void ClienteLogin() {
+    Console.WriteLine("----- Login do Cliente -----");
+    ClienteListar();
+    Console.Write("Informe o cpf do cliente para logar: ");
+    string cpf = Console.ReadLine();
+    clienteLogin = Sistema.ClienteListar(cpf);
+  }
+  
+  public static void ClienteLogout() { 
+    Console.WriteLine("----- Logout do Cliente -----");
+    clienteLogin = null;
+  }
+  
+  public static int MenuUsuario() {
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("1 - Entrar como Administrador");
+    Console.WriteLine("2 - Entrar como Cliente");
+    Console.WriteLine("0 - Fim");
+    Console.WriteLine("----------------------------------");
+    Console.Write("Informe uma opção: ");
+    int n = int.Parse(Console.ReadLine());
+    Console.WriteLine();
+    return n; 
+  }
+  
+  public static int MenuAdmin() {
     Console.WriteLine("----- Escolha uma das opções abaixo -----");
     Console.WriteLine("01 - Inserir um novo banco");
     Console.WriteLine("02 - Listar os bancos cadastrados");
@@ -47,12 +101,110 @@ class Program {
     Console.WriteLine("12 - Excluir uma conta");
     Console.WriteLine("13 - Listar as contas cadastradas por banco");
     Console.WriteLine("14 - Listar as contas cadastradas por cliente");
+    Console.WriteLine("99 - Voltar ao menu anterior");
     Console.WriteLine("00 - Finalizar o programa");
     Console.WriteLine("-----------------------------------------");
     Console.Write("Digite sua opção: ");
     int n = int.Parse(Console.ReadLine());
     Console.WriteLine();
     return n;
+  }
+
+  public static int MenuClienteLogin() {
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("01 - Login");
+    Console.WriteLine("99 - Voltar");
+    Console.WriteLine("00 - Fim");
+    Console.WriteLine("----------------------------------");
+    Console.Write("Informe uma opção: ");
+    int n = int.Parse(Console.ReadLine());
+    Console.WriteLine();
+    return n; 
+  }
+
+  public static int MenuClienteLogout() {
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("Bem vindo(a), " + clienteLogin.GetNome());
+    Console.WriteLine("----------------------------------");
+    Console.WriteLine("01 - Saque");
+    Console.WriteLine("02 - Depósito");
+    Console.WriteLine("03 - Pix");
+    Console.WriteLine("04 - Listar minha contas");
+    Console.WriteLine("05 - Informações de uma conta");
+    Console.WriteLine("99 - Logout");
+    Console.WriteLine("0  - Fim");
+    Console.WriteLine("----------------------------------");
+    Console.Write("Informe uma opção: ");
+    int n = int.Parse(Console.ReadLine());
+    Console.WriteLine();
+    return n; 
+  }
+
+  public static void ClienteSacar() {
+    Console.WriteLine("----- Saque -----");
+    Console.WriteLine($"----- Contas cadastradas no seu nome -----");
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) Console.WriteLine(x);
+    Console.WriteLine("------------------------------------------------------------------");
+    Console.WriteLine();
+    Console.Write("Informe o número da conta que você quer sacar: ");
+    string numero = Console.ReadLine();
+    Console.Write("Informe o valor que deseja sacar: ");
+    double valor = double.Parse(Console.ReadLine());
+    Console.WriteLine(Sistema.ClienteSacar(numero, valor));
+  }
+
+  public static void ClienteDepositar() {
+    Console.WriteLine("----- Depósito -----");
+    Console.WriteLine($"----- Contas cadastradas no seu nome -----");
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) Console.WriteLine(x);
+    Console.WriteLine("------------------------------------------------------------------");
+    Console.WriteLine();
+    Console.Write("Informe o número da conta que você quer depositar: ");
+    string numero = Console.ReadLine();
+    Console.Write("Informe o valor que deseja depositar: ");
+    double valor = double.Parse(Console.ReadLine());
+    Console.WriteLine(Sistema.ClienteDepositar(numero, valor));
+  }
+
+  public static void ClientePixar() {
+    Console.WriteLine("----- Pix -----");
+    Console.WriteLine($"----- Contas cadastradas no seu nome -----");
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) Console.WriteLine(x);
+    Console.WriteLine("------------------------------------------------------------------");
+    Console.WriteLine();
+    Console.Write("Informe o número da conta que você quer realizar o Pix: ");
+    string numero = Console.ReadLine();
+    Console.Write("Informe o número da conta que você quer enviar o Pix: ");
+    string numero2 = Console.ReadLine();
+    Console.Write("Informe o valor que deseja enviar como Pix: ");
+    double valor = double.Parse(Console.ReadLine());
+    Console.WriteLine(Sistema.ClientePixar(numero, valor, numero2));
+  }
+
+  public static void ClienteListarContas() {
+    Console.WriteLine("----- Suas Contas -----");
+    int u = 1;
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) {
+      Console.WriteLine($"{u} Número: {x.GetNumero()} - Banco: {Sistema.BancoListar(x.GetIdBanco()).GetNome()}");
+    u++;
+    }
+    Console.WriteLine("------------------------------");
+    Console.WriteLine();
+  }
+
+  public static void ClienteContaInformacoes() {
+    Console.WriteLine("----- Informações da conta -----");
+    Console.WriteLine($"----- Bancos cadastrados -----");
+    Console.WriteLine();
+    BancoListar();
+    Console.Write("Informe o ID do banco que a conta está cadastrada: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.WriteLine("------------- Conta ------------");
+    Console.WriteLine(Sistema.ContaListar(id, clienteLogin.GetCpf()));
+    Console.WriteLine("--------------------------------");
+    Console.WriteLine();
   }
 
   public static void BancoInserir() {

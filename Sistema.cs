@@ -70,9 +70,49 @@ class Sistema {
     Cliente aux = ClienteListar(obj.GetCpf());
     if (aux != null) clientes.Remove(aux);
   }
+
+  public static string ClienteSacar(string numero, double valor) {
+    ContaBancaria conta = null;
+    foreach(ContaBancaria x in contas) if (x.GetNumero() == numero) conta = x;
+    if(conta != null) {
+      int i = conta.Sacar(valor);
+      if (i == 1) return "----- Operação realizada com sucesso -----";
+      else return "----- Saldo insuficiente -----";
+    }
+    return "----- Conta não encontrada -----";
+  }
+
+  public static string ClienteDepositar(string numero, double valor) {
+    ContaBancaria conta = null;
+    foreach(ContaBancaria x in contas) if (x.GetNumero() == numero) conta = x;
+    if(conta != null) {
+      int i = conta.Depositar(valor);
+      if (i == 1) return "----- Operação realizada com sucesso -----";
+      else return "----- Valor inválido para depósito -----";
+    }
+    return "----- Conta não encontrada -----";
+  }
+
+  public static string ClientePixar(string numero, double valor, string numero2) {
+    ContaBancaria conta = null;
+    ContaBancaria conta2 = null;
+    foreach(ContaBancaria x in contas) if (x.GetNumero() == numero) conta = x;
+    foreach(ContaBancaria y in contas) if (y.GetNumero() == numero2) conta2 = y;
+    if(conta != null && conta2 != null) {
+      int i = conta.Sacar(valor);
+      if (i == 1) {
+        int j = conta2.Depositar(valor);
+        if (j == 1) return "----- Operação realizada com sucesso -----";
+        else return "----- Valor inválido para Pix -----";
+      } else return "----- Valor insuficiente para fazer o Pix -----";
+    }
+    return "----- Conta não encontrada -----";
+  }
   
   public static void ContaInserir(ContaBancaria obj) {
-    contas.Add(obj);
+    Boolean t = false;
+    foreach(Cliente x in clientes) if (obj.GetCpfCliente() == x.GetCpf()) t = true;
+    foreach(Banco y in bancos) if (obj.GetIdBanco() == y.GetId() && t) contas.Add(obj);
   }
 
   public static List<ContaBancaria> ContaListar() {
