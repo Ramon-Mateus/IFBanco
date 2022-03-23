@@ -147,7 +147,7 @@ class Program {
     Console.WriteLine("01 - Saque");
     Console.WriteLine("02 - Depósito");
     Console.WriteLine("03 - Pix");
-    Console.WriteLine("04 - Listar minha contas");
+    Console.WriteLine("04 - Listar minhas contas");
     Console.WriteLine("05 - Informações de uma conta");
     Console.WriteLine("99 - Logout");
     Console.WriteLine("0  - Fim");
@@ -160,8 +160,12 @@ class Program {
 
   public static void ClienteSacar() {
     Console.WriteLine("----- Saque -----");
+    int u = 1;
     Console.WriteLine($"----- Contas cadastradas no seu nome -----");
-    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) Console.WriteLine(x);
+    foreach(ContaBancaria x in Sistema.ContaListarCliente(clienteLogin.GetCpf())) {
+      Console.WriteLine($"{u} {x}");
+      u++;
+    }
     Console.WriteLine("------------------------------------------------------------------");
     Console.WriteLine();
     Console.Write("Informe o número da conta que você quer sacar: ");
