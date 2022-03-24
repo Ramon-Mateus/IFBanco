@@ -8,7 +8,7 @@ public class ContaBancaria : IComparable {
   private int idBanco;
   private string cpfCliente;
 
-  public string Numero { 
+  public string Numero {
     get => numero; 
     set => numero = value; 
   }
@@ -109,13 +109,5 @@ public class ContaBancaria : IComparable {
 
   public override string ToString() {
     return $"Numero: {numero} - Agencia: {agencia} - Saldo: R$ {saldo:0.00} - Banco: {Sistema.BancoListar(idBanco).GetNome()} - Cliente: {Sistema.ClienteListar(cpfCliente).GetNome()} - CPF do Cliente: {cpfCliente}";
-  }
-}
-
-class ContaSaldoComp : IComparer {
-  public int Compare(object x, object y) {
-    ContaBancaria a = (ContaBancaria) x;
-    ContaBancaria b = (ContaBancaria) y;
-    return a.GetSaldo().CompareTo(b.GetSaldo());
   }
 }

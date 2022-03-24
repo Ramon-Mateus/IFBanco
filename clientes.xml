@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCliente xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Cliente>
-    <Nome>Ramon de Oliveira</Nome>
-    <Cpf>12345678960</Cpf>
-    <Email>ramonmateus@gmail.com</Email>
-  </Cliente>
-  <Cliente>
     <Nome>Rômulo Silva</Nome>
     <Cpf>12345678950</Cpf>
     <Email>romulosilva@gmail.com</Email>
+  </Cliente>
+  <Cliente>
+    <Nome>Ramon de Oliveira</Nome>
+    <Cpf>12345678960</Cpf>
+    <Email>ramonmateus@gmail.com</Email>
   </Cliente>
 </ArrayOfCliente>

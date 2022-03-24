@@ -8,17 +8,17 @@
     <CpfCliente>12345678960</CpfCliente>
   </ContaBancaria>
   <ContaBancaria>
-    <Numero>1234</Numero>
-    <Agencia>576</Agencia>
-    <Saldo>1000</Saldo>
-    <IdBanco>32</IdBanco>
-    <CpfCliente>12345678960</CpfCliente>
-  </ContaBancaria>
-  <ContaBancaria>
     <Numero>2985</Numero>
     <Agencia>297</Agencia>
     <Saldo>560</Saldo>
     <IdBanco>46</IdBanco>
     <CpfCliente>12345678950</CpfCliente>
+  </ContaBancaria>
+  <ContaBancaria>
+    <Numero>1234</Numero>
+    <Agencia>576</Agencia>
+    <Saldo>1000</Saldo>
+    <IdBanco>32</IdBanco>
+    <CpfCliente>12345678960</CpfCliente>
   </ContaBancaria>
 </ArrayOfContaBancaria>

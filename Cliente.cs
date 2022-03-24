@@ -64,11 +64,3 @@ public class Cliente : IComparable {
     return $"Nome: {nome} - CPF: {cpf} - Email: {email}";
   }
 }
-
-class ClienteNomeComp : IComparer {
-  public int Compare(object x, object y) {
-    Cliente a = (Cliente) x;
-    Cliente b = (Cliente) y;
-    return a.GetNome().CompareTo(b.GetNome());
-  }
-}
